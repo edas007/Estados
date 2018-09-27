@@ -10,6 +10,9 @@ const numQuestions = 0;
 const numCorrect = 0;
 
 class App extends Component {
+  state={
+    algo: 'Ed'
+  }
   render() {
     return (
       <div className="App">
