@@ -6,13 +6,36 @@ const value1 = Math.floor(Math.random() * 100);
 const value2 = Math.floor(Math.random() * 100);
 const value3 = Math.floor(Math.random() * 100);
 const proposedAnswer = Math.floor(Math.random() * 3) + value1 + value2 + value3;
-const numQuestions = 0;
-const numCorrect = 0;
+
 
 class App extends Component {
-  state={
-    algo: 'Ed'
+  constructor(){
+    super();
+    this.state={
+      numQuestions: 0,
+      numCorrect: 0
+    }
+    this.correct = this.correct.bind(this);
+    this.incorrect = this.incorrect.bind(this);
   }
+checkTrueAnswer = () =>{
+  (value1 + value2 + value3 === proposedAnswer) ? this.correct() : this.incorrect()
+}
+checkFalseAnswer = () =>{
+  (value1 + value2 + value3 != proposedAnswer) ? this.correct() : this.incorrect()
+}  
+correct(){
+  this.setState((prevState) => ({
+  numQuestions: prevState.numQuestions + 1,
+  numCorrect: prevState.numCorrect + 1
+	}))
+}
+incorrect(){
+  this.setState((prevState) => ({
+  numQuestions: prevState.numQuestions + 1,
+	}))
+}
+  
   render() {
     return (
       <div className="App">
@@ -25,10 +48,10 @@ class App extends Component {
           <div className="equation">
             <p className="text">{`${value1} + ${value2} + ${value3} = ${proposedAnswer}`}</p>
           </div>
-          <button>True</button>
-          <button>False</button>
+          <button onClick={this.checkTrueAnswer}>True</button>
+          <button onClick={this.checkFalseAnswer}>False</button>
           <p className="text">
-            Your Score: {numCorrect}/{numQuestions}
+            Your Score: {this.state.numCorrect}/{this.state.numQuestions}
           </p>
         </div>
       </div>
