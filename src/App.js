@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const value1 = Math.floor(Math.random() * 100);
-const value2 = Math.floor(Math.random() * 100);
-const value3 = Math.floor(Math.random() * 100);
-const proposedAnswer = Math.floor(Math.random() * 3) + value1 + value2 + value3;
-
+var value1 = 0;
+var value2 = 0;
+var value3 = 0;
+var proposedAnswer = 0;
 
 class App extends Component {
   constructor(){
@@ -17,12 +16,21 @@ class App extends Component {
     }
     this.correct = this.correct.bind(this);
     this.incorrect = this.incorrect.bind(this);
+    this.refreshData();
   }
+
+refreshData(){
+    this.value1 = Math.floor(Math.random() * 100);
+	this.value2 = Math.floor(Math.random() * 100);
+	this.value3 = Math.floor(Math.random() * 100);
+	this.proposedAnswer = Math.floor(Math.random() * 3) + this.value1 + this.value2 + this.value3;
+
+}
 checkTrueAnswer = () =>{
-  (value1 + value2 + value3 === proposedAnswer) ? this.correct() : this.incorrect()
+  (this.value1 + this.value2 + this.value3 === this.proposedAnswer) ? this.correct() : this.incorrect()
 }
 checkFalseAnswer = () =>{
-  (value1 + value2 + value3 != proposedAnswer) ? this.correct() : this.incorrect()
+  (this.value1 + this.value2 + this.value3 !== this.proposedAnswer) ? this.correct() : this.incorrect()
 }  
 correct(){
   this.setState((prevState) => ({
@@ -37,6 +45,7 @@ incorrect(){
 }
   
   render() {
+    this.refreshData();
     return (
       <div className="App">
         <header className="App-header">
@@ -46,7 +55,7 @@ incorrect(){
         <div className="game">
           <h2>Mental Math</h2>
           <div className="equation">
-            <p className="text">{`${value1} + ${value2} + ${value3} = ${proposedAnswer}`}</p>
+            <p className="text">{`${this.value1} + ${this.value2} + ${this.value3} = ${this.proposedAnswer}`}</p>
           </div>
           <button onClick={this.checkTrueAnswer}>True</button>
           <button onClick={this.checkFalseAnswer}>False</button>
