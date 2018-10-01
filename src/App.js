@@ -27,9 +27,11 @@ refreshData(){
 
 }
 checkTrueAnswer = () =>{
+	//Use this format when calling from UI
   (this.value1 + this.value2 + this.value3 === this.proposedAnswer) ? this.correct() : this.incorrect()
 }
 checkFalseAnswer = () =>{
+	//Use this format when calling from UI
   (this.value1 + this.value2 + this.value3 !== this.proposedAnswer) ? this.correct() : this.incorrect()
 }  
 correct(){
